@@ -9,6 +9,7 @@
         <Compile Include="Arr2D.fs" />
         <Compile Include="EfficientString.fs" />
         <Compile Include="Day1.fs" />
+        <Compile Include="Day2.fs" />
         <Compile Include="Day3.fs" />
     </ItemGroup>
 
