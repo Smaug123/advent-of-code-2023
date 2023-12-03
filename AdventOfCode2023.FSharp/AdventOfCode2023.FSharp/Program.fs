@@ -38,6 +38,7 @@ module Program =
             }
 #else
         use ptr = fixed resultArr
+
         let contents =
             {
                 Elements = ptr
