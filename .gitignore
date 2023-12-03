@@ -1,0 +1,12 @@
+bin/
+obj/
+riderModule.iml
+_ReSharper.Caches/
+.idea/
+*.user
+*.DotSettings
+.DS_Store
+result
+.profile*
+
+inputs/
