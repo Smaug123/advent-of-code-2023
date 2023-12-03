@@ -8,26 +8,13 @@ open System.IO
 [<TestFixture>]
 module TestDay1 =
 
-    let sample1 =
-        """1abc2
-pqr3stu8vwx
-a1b2c3d4e5f
-treb7uchet
-"""
+    let sample1 = Assembly.getEmbeddedResource typeof<Dummy>.Assembly "day1part1.txt"
 
     [<Test>]
     let part1Sample () =
         sample1 |> Day1.part1 |> shouldEqual 142
 
-    let sample2 =
-        """two1nine
-eightwothree
-abcone2threexyz
-xtwone3four
-4nineeightseven2
-zoneight234
-7pqrstsixteen
-"""
+    let sample2 = Assembly.getEmbeddedResource typeof<Dummy>.Assembly "day1.txt"
 
     [<Test>]
     let part2Sample () =

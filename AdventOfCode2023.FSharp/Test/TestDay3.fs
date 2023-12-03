@@ -13,18 +13,7 @@ open System.IO
 [<TestFixture>]
 module TestDay3 =
 
-    let sample =
-        """467..114..
-...*......
-..35..633.
-......#...
-617*......
-.....+.58.
-..592.....
-......755.
-...$.*....
-.664.598..
-"""
+    let sample = Assembly.getEmbeddedResource typeof<Dummy>.Assembly "day3.txt"
 
     [<Test>]
     let part1Sample () =

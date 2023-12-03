@@ -8,9 +8,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="Util.fs" />
         <Compile Include="TestDay1.fs" />
         <Compile Include="TestDay2.fs" />
         <Compile Include="TestDay3.fs" />
+        <EmbeddedResource Include="samples\day1.txt" />
+        <EmbeddedResource Include="samples\day1part1.txt" />
+        <EmbeddedResource Include="samples\day2.txt" />
+        <EmbeddedResource Include="samples\day3.txt" />
     </ItemGroup>
 
     <ItemGroup>
