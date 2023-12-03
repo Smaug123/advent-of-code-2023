@@ -3,7 +3,9 @@ namespace AdventOfCode2023.Test
 open System.IO
 open System.Reflection
 
-type Dummy = class end
+type Dummy =
+    class
+    end
 
 [<RequireQualifiedAccess>]
 module Assembly =
@@ -18,4 +20,3 @@ module Assembly =
             |> fun s -> new StreamReader (s)
 
         s.ReadToEnd ()
-
