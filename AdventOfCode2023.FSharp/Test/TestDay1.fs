@@ -38,7 +38,9 @@ zoneight234
         let s =
             try
                 File.ReadAllText (Path.Combine (__SOURCE_DIRECTORY__, "../../inputs/day1.txt"))
-            with :? FileNotFoundException ->
+            with
+            | :? DirectoryNotFoundException
+            | :? FileNotFoundException ->
                 Assert.Inconclusive ()
                 failwith "unreachable"
 
@@ -49,7 +51,9 @@ zoneight234
         let s =
             try
                 File.ReadAllText (Path.Combine (__SOURCE_DIRECTORY__, "../../inputs/day1.txt"))
-            with :? FileNotFoundException ->
+            with
+            | :? DirectoryNotFoundException
+            | :? FileNotFoundException ->
                 Assert.Inconclusive ()
                 failwith "unreachable"
 

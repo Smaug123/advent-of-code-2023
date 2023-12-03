@@ -86,6 +86,10 @@ module Program =
             Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
 
         endToEnd.Stop ()
-        Console.Error.WriteLine ((1_000.0 * float endToEnd.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms total")
+
+        Console.Error.WriteLine (
+            (1_000.0 * float endToEnd.ElapsedTicks / float Stopwatch.Frequency).ToString ()
+            + "ms total"
+        )
 
         0

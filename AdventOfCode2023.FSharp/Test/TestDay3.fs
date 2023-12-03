@@ -77,7 +77,9 @@ module TestDay3 =
         let bytes =
             try
                 File.ReadAllBytes (Path.Combine (__SOURCE_DIRECTORY__, "../../inputs/day3.txt"))
-            with :? FileNotFoundException ->
+            with
+            | :? DirectoryNotFoundException
+            | :? FileNotFoundException ->
                 Assert.Inconclusive ()
                 failwith "unreachable"
 
@@ -107,7 +109,9 @@ module TestDay3 =
         let bytes =
             try
                 File.ReadAllBytes (Path.Combine (__SOURCE_DIRECTORY__, "../../inputs/day3.txt"))
-            with :? FileNotFoundException ->
+            with
+            | :? DirectoryNotFoundException
+            | :? FileNotFoundException ->
                 Assert.Inconclusive ()
                 failwith "unreachable"
 

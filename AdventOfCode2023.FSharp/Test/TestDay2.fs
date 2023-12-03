@@ -28,7 +28,9 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
         let s =
             try
                 File.ReadAllText (Path.Combine (__SOURCE_DIRECTORY__, "../../inputs/day2.txt"))
-            with :? FileNotFoundException ->
+            with
+            | :? DirectoryNotFoundException
+            | :? FileNotFoundException ->
                 Assert.Inconclusive ()
                 failwith "unreachable"
 
@@ -39,7 +41,9 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
         let s =
             try
                 File.ReadAllText (Path.Combine (__SOURCE_DIRECTORY__, "../../inputs/day2.txt"))
-            with :? FileNotFoundException ->
+            with
+            | :? DirectoryNotFoundException
+            | :? FileNotFoundException ->
                 Assert.Inconclusive ()
                 failwith "unreachable"
 
