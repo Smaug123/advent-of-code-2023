@@ -5,6 +5,7 @@
 #nowarn "9"
 #endif
 
+open System
 open System.Diagnostics
 open System.IO
 
@@ -18,49 +19,73 @@ module Program =
         let endToEnd = Stopwatch.StartNew ()
         endToEnd.Restart ()
 
+        let dir = DirectoryInfo argv.[0]
+
         let sw = Stopwatch.StartNew ()
-        sw.Restart ()
-        let contents = File.ReadAllBytes argv.[0]
-        sw.Stop ()
-        System.Console.Error.WriteLine ("Reading file (us): " + (toUs sw.ElapsedTicks).ToString ())
 
-        sw.Restart ()
-        let resultArr, len, lineCount = Day3.parse contents
+        do
+            sw.Restart ()
+            let input = Path.Combine (dir.FullName, "day1.txt") |> File.ReadAllText
+            let part1 = Day1.part1 input
+            sw.Stop ()
+            Console.WriteLine (part1.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
+            sw.Restart ()
+            let part2 = Day1.part2 input
+            sw.Stop ()
+            Console.WriteLine (part2.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
 
-        sw.Stop ()
-        System.Console.Error.WriteLine ("Populating array (us): " + (toUs sw.ElapsedTicks).ToString ())
+        do
+            let input = Path.Combine (dir.FullName, "day2.txt") |> File.ReadAllText
+            sw.Restart ()
+            let part1 = Day2.part1 input
+            sw.Stop ()
+            Console.WriteLine (part1.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
+            sw.Restart ()
+            let part2 = Day2.part2 input
+            sw.Stop ()
+            Console.WriteLine (part2.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
 
+        do
+            let input = Path.Combine (dir.FullName, "day3.txt") |> File.ReadAllBytes
+
+            sw.Restart ()
+            let resultArr, len, lineCount = Day3.parse input
+            sw.Stop ()
+
+            Console.Error.WriteLine (
+                (1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString ()
+                + "ms parse"
+            )
 #if DEBUG
-        let contents =
-            {
-                Elements = Array.take len resultArr
-                Width = len / lineCount
-            }
+            let contents =
+                {
+                    Elements = Array.take len resultArr
+                    Width = len / lineCount
+                }
 #else
-        use ptr = fixed resultArr
+            use ptr = fixed resultArr
 
-        let contents =
-            {
-                Elements = ptr
-                Length = len
-                Width = len / lineCount
-            }
+            let contents =
+                {
+                    Elements = ptr
+                    Length = len
+                    Width = len / lineCount
+                }
 #endif
-        // |> Array.map (fun s -> Array.init s.Length (fun i -> if s.[i] = '.' then 100uy elif s.[i] = '*' then 255uy elif '0' <= s.[i] && s.[i] <= '9' then byte s.[i] - byte '0' else 254uy))
-
-        sw.Restart ()
-        let part1 = Day3.part1 contents
-        sw.Stop ()
-        System.Console.Error.WriteLine ("Part 1 (us): " + (toUs sw.ElapsedTicks).ToString ())
-        System.Console.WriteLine (part1.ToString ())
-
-        sw.Restart ()
-        let part2 = Day3.part2 contents
-        sw.Stop ()
-        System.Console.Error.WriteLine ("Part 2 (us): " + (toUs sw.ElapsedTicks).ToString ())
-        System.Console.WriteLine (part2.ToString ())
+            let part1 = Day3.part1 contents
+            sw.Stop ()
+            Console.WriteLine (part1.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
+            sw.Restart ()
+            let part2 = Day3.part2 contents
+            Console.WriteLine (part2.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
 
         endToEnd.Stop ()
-        System.Console.Error.WriteLine ("Total (us): " + (toUs endToEnd.ElapsedTicks).ToString ())
+        Console.Error.WriteLine ((1_000.0 * float endToEnd.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms total")
 
         0
