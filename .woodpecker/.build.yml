@@ -1,0 +1,15 @@
+steps:
+  build:
+    image: nixos/nix
+    commands:
+      - echo 'experimental-features = flakes nix-command' >> /etc/nix/nix.conf
+      # Lint
+      - "nix flake check"
+      # Test
+      - nix develop --command dotnet test
+      - nix develop --command dotnet test --configuration Release
+
+    when:
+      - event: "push"
+        evaluate: 'CI_COMMIT_BRANCH == CI_REPO_DEFAULT_BRANCH'
+      - event: "pull_request"
