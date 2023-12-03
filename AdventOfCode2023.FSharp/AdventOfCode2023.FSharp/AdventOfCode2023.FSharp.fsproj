@@ -1,28 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net8.0</TargetFramework>
         <PublishAot>true</PublishAot>
-        <InvariantGlobalization>true</InvariantGlobalization>
-        <UseSystemResourceKeys>true</UseSystemResourceKeys>
-
-        <IlcOptimizationPreference>Speed</IlcOptimizationPreference>
-        <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
-
-        <DebuggerSupport>false</DebuggerSupport>
-        <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
-        <EventSourceSupport>false</EventSourceSupport>
-        <HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>
-        <MetadataUpdaterSupport>false</MetadataUpdaterSupport>
     </PropertyGroup>
 
     <ItemGroup>
         <Compile Include="Program.fs"/>
     </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\AdventOfCode2023.FSharp.Lib\AdventOfCode2023.FSharp.Lib.fsproj" />
-    </ItemGroup>
-
 </Project>
