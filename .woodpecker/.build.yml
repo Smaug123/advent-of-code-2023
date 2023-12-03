@@ -8,6 +8,7 @@ steps:
       # Test
       - nix develop --command dotnet test
       - nix develop --command dotnet test --configuration Release
+      - nix develop --command alejandra --check .
 
     when:
       - event: "push"
