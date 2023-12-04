@@ -6,8 +6,13 @@ steps:
       # Lint
       - "nix flake check"
       # Test
-      - nix develop --command dotnet test
-      - nix develop --command dotnet test --configuration Release
+      - nix develop --command dotnet test AdventOfCode2023.FSharp
+      - nix develop --command dotnet test AdventOfCode2023.FSharp --configuration Release
+      - nix develop --command alejandra --check .
+      - nix develop --command dotnet tool restore
+      - nix develop --command dotnet fantomas --check .
+      # - nix develop --command dotnet publish AdventOfCode2023.FSharp/AdventOfCode2023.FSharp/AdventOfCode2023.FSharp.fsproj --configuration Release
+      # - nix develop --command sh -c "$(find . -type f -name AdventOfCode2023.FSharp | grep Release | grep publish) AdventOfCode2023.FSharp/Test/samples"
 
     when:
       - event: "push"

@@ -6,39 +6,38 @@ open FsUnitTyped
 open System.IO
 
 [<TestFixture>]
-module TestDay2 =
+module TestDay4 =
 
-    let sample = Assembly.getEmbeddedResource typeof<Dummy>.Assembly "day2.txt"
-
-    [<Test>]
-    let part1Sample () = sample |> Day2.part1 |> shouldEqual 8
+    let sample = Assembly.getEmbeddedResource typeof<Dummy>.Assembly "day4.txt"
 
     [<Test>]
-    let part2Sample () =
-        sample |> Day2.part2 |> shouldEqual 2286
+    let part1Sample () = sample |> Day4.part1 |> shouldEqual 13
+
+    [<Test>]
+    let part2Sample () = sample |> Day4.part2 |> shouldEqual 30
 
     [<Test>]
     let part1Actual () =
         let s =
             try
-                File.ReadAllText (Path.Combine (__SOURCE_DIRECTORY__, "../../inputs/day2.txt"))
+                File.ReadAllText (Path.Combine (__SOURCE_DIRECTORY__, "../../inputs/day4.txt"))
             with
             | :? DirectoryNotFoundException
             | :? FileNotFoundException ->
                 Assert.Inconclusive ()
                 failwith "unreachable"
 
-        Day2.part1 s |> shouldEqual 2727
+        Day4.part1 s |> shouldEqual 27454
 
     [<Test>]
     let part2Actual () =
         let s =
             try
-                File.ReadAllText (Path.Combine (__SOURCE_DIRECTORY__, "../../inputs/day2.txt"))
+                File.ReadAllText (Path.Combine (__SOURCE_DIRECTORY__, "../../inputs/day4.txt"))
             with
             | :? DirectoryNotFoundException
             | :? FileNotFoundException ->
                 Assert.Inconclusive ()
                 failwith "unreachable"
 
-        Day2.part2 s |> shouldEqual 56580
+        Day4.part2 s |> shouldEqual 6857330

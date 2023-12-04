@@ -85,7 +85,24 @@ module Program =
             Console.WriteLine (part2.ToString ())
             Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
 
+        do
+            let input = Path.Combine (dir.FullName, "day4.txt") |> File.ReadAllText
+            sw.Restart ()
+            let part1 = Day4.part1 input
+            sw.Stop ()
+            Console.WriteLine (part1.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
+            sw.Restart ()
+            let part2 = Day4.part2 input
+            sw.Stop ()
+            Console.WriteLine (part2.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
+
         endToEnd.Stop ()
-        Console.Error.WriteLine ((1_000.0 * float endToEnd.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms total")
+
+        Console.Error.WriteLine (
+            (1_000.0 * float endToEnd.ElapsedTicks / float Stopwatch.Frequency).ToString ()
+            + "ms total"
+        )
 
         0
