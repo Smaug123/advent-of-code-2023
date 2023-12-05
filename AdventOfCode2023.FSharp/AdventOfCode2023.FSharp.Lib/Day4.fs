@@ -1,15 +1,22 @@
 namespace AdventOfCode2023
 
 open System
-open System.Collections.Generic
+open System.Globalization
 
 [<RequireQualifiedAccess>]
 module Day4 =
 
+    let inline parseByte (chars : ReadOnlySpan<char>) : byte =
+        Byte.Parse (chars, NumberStyles.None, NumberFormatInfo.InvariantInfo)
+    //let mutable answer = 0uy
+    //for c in chars do
+    //    answer <- answer * 10uy + (byte c - 48uy)
+    //answer
+
     let part1 (s : string) =
         use lines = StringSplitEnumerator.make '\n' s
         let mutable total = 0
-        let winningNumbers = HashSet ()
+        let winningNumbers = ResizeArray<byte> ()
 
         for line in lines do
             if not (line.IsWhiteSpace ()) then
@@ -30,14 +37,14 @@ module Day4 =
                     if split.Current.[0] = '|' then
                         accumulatingWinning <- false
                     else
-                        winningNumbers.Add (Int32.Parse split.Current) |> ignore
+                        winningNumbers.Add (parseByte split.Current)
                         split.MoveNext () |> ignore
 
                 let mutable answer = 0
 
                 while split.MoveNext () do
                     if not split.Current.IsEmpty then
-                        let n = Int32.Parse split.Current
+                        let n = parseByte split.Current
 
                         if winningNumbers.Contains n then
                             answer <- answer + 1
@@ -51,9 +58,8 @@ module Day4 =
 
     let part2 (s : string) =
         use lines = StringSplitEnumerator.make '\n' s
-        let mutable total = 0
-        let winningNumbers = HashSet ()
-        let winners = ResizeArray ()
+        let winningNumbers = ResizeArray<byte> ()
+        let winners = ResizeArray<int> ()
 
         for line in lines do
             if not (line.IsWhiteSpace ()) then
@@ -74,14 +80,14 @@ module Day4 =
                     if split.Current.[0] = '|' then
                         accumulatingWinning <- false
                     else
-                        winningNumbers.Add (Int32.Parse split.Current) |> ignore
+                        winningNumbers.Add (parseByte split.Current)
                         split.MoveNext () |> ignore
 
                 let mutable answer = 0
 
                 while split.MoveNext () do
                     if not split.Current.IsEmpty then
-                        let n = Int32.Parse split.Current
+                        let n = parseByte split.Current
 
                         if winningNumbers.Contains n then
                             answer <- answer + 1

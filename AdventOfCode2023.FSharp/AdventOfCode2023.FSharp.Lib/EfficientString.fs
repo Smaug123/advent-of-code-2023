@@ -95,3 +95,15 @@ module StringSplitEnumerator =
             failwith "expected an int, got nothing"
 
         Int32.Parse e.Current
+
+    let consumeU32 (e : byref<StringSplitEnumerator>) : uint32 =
+        if not (e.MoveNext ()) then
+            failwith "expected an int, got nothing"
+
+        UInt32.Parse e.Current
+
+    let consumeU64 (e : byref<StringSplitEnumerator>) : uint64 =
+        if not (e.MoveNext ()) then
+            failwith "expected an int, got nothing"
+
+        UInt64.Parse e.Current

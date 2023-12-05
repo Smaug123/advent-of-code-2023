@@ -23,6 +23,8 @@ module Program =
 
         let sw = Stopwatch.StartNew ()
 
+        printfn "=====Day 1====="
+
         do
             sw.Restart ()
             let input = Path.Combine (dir.FullName, "day1.txt") |> File.ReadAllText
@@ -36,6 +38,8 @@ module Program =
             Console.WriteLine (part2.ToString ())
             Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
 
+        printfn "=====Day 2====="
+
         do
             let input = Path.Combine (dir.FullName, "day2.txt") |> File.ReadAllText
             sw.Restart ()
@@ -48,6 +52,8 @@ module Program =
             sw.Stop ()
             Console.WriteLine (part2.ToString ())
             Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
+
+        printfn "=====Day 3====="
 
         do
             let input = Path.Combine (dir.FullName, "day3.txt") |> File.ReadAllBytes
@@ -85,6 +91,8 @@ module Program =
             Console.WriteLine (part2.ToString ())
             Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
 
+        printfn "=====Day 4====="
+
         do
             let input = Path.Combine (dir.FullName, "day4.txt") |> File.ReadAllText
             sw.Restart ()
@@ -94,6 +102,21 @@ module Program =
             Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
             sw.Restart ()
             let part2 = Day4.part2 input
+            sw.Stop ()
+            Console.WriteLine (part2.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
+
+        printfn "=====Day 5====="
+
+        do
+            let input = Path.Combine (dir.FullName, "day5.txt") |> File.ReadAllText
+            sw.Restart ()
+            let part1 = Day5.part1 input
+            sw.Stop ()
+            Console.WriteLine (part1.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
+            sw.Restart ()
+            let part2 = Day5.part2 input
             sw.Stop ()
             Console.WriteLine (part2.ToString ())
             Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
