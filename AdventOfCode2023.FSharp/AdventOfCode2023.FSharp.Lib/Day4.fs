@@ -54,8 +54,6 @@ module Day4 =
 
         total
 
-
-
     let part2 (s : string) =
         use lines = StringSplitEnumerator.make '\n' s
         let winningNumbers = ResizeArray<byte> ()

@@ -11,8 +11,9 @@ steps:
       - nix develop --command alejandra --check .
       - nix develop --command dotnet tool restore
       - nix develop --command dotnet fantomas --check .
-      # - nix develop --command dotnet publish AdventOfCode2023.FSharp/AdventOfCode2023.FSharp/AdventOfCode2023.FSharp.fsproj --configuration Release
-      # - nix develop --command sh -c "$(find . -type f -name AdventOfCode2023.FSharp | grep Release | grep publish) AdventOfCode2023.FSharp/Test/samples"
+      # TODO: if https://github.com/dotnet/sdk/issues/37295 ever gets fixed, remove the PublishAot=false
+      - "nix develop --command dotnet publish AdventOfCode2023.FSharp/AdventOfCode2023.FSharp/AdventOfCode2023.FSharp.fsproj --configuration Release -p:PublishAot=false -p:SelfContained=true"
+      - '$(find . -type f -name AdventOfCode2023.FSharp | grep Release | grep publish) "$(pwd)/AdventOfCode2023.FSharp/Test/samples"'
 
     when:
       - event: "push"

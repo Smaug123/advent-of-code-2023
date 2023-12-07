@@ -146,7 +146,7 @@ module Day3 =
 
         let mutable answer = 0
 
-        for KeyValue (_gearPos, gears) in gears do
+        for gears in gears.Values do
             if gears.Count = 2 then
                 answer <- answer + gears.[0] * gears.[1]
 

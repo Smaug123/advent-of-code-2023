@@ -27,12 +27,13 @@ module Program =
 
         do
             sw.Restart ()
-            let input = Path.Combine (dir.FullName, "day1.txt") |> File.ReadAllText
+            let input = Path.Combine (dir.FullName, "day1part1.txt") |> File.ReadAllText
             let part1 = Day1.part1 input
             sw.Stop ()
             Console.WriteLine (part1.ToString ())
             Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
             sw.Restart ()
+            let input = Path.Combine (dir.FullName, "day1.txt") |> File.ReadAllText
             let part2 = Day1.part2 input
             sw.Stop ()
             Console.WriteLine (part2.ToString ())
@@ -132,6 +133,21 @@ module Program =
             Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
             sw.Restart ()
             let part2 = Day6.part2 input
+            sw.Stop ()
+            Console.WriteLine (part2.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
+
+        printfn "=====Day 7====="
+
+        do
+            let input = Path.Combine (dir.FullName, "day7.txt") |> File.ReadAllText
+            sw.Restart ()
+            let part1 = Day7.part1 input
+            sw.Stop ()
+            Console.WriteLine (part1.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
+            sw.Restart ()
+            let part2 = Day7.part2 input
             sw.Stop ()
             Console.WriteLine (part2.ToString ())
             Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
