@@ -7,6 +7,7 @@
 
     <ItemGroup>
         <Compile Include="Arr2D.fs" />
+        <Compile Include="ResizeArray.fs" />
         <Compile Include="EfficientString.fs" />
         <Compile Include="Day1.fs" />
         <Compile Include="Day2.fs" />

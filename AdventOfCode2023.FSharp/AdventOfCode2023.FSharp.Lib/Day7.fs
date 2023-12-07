@@ -1,16 +1,17 @@
 namespace AdventOfCode2023
 
 open System
-open System.Collections.Generic
+open System.Globalization
+open AdventOfCode2023.ResizeArray
 
 type Hand =
-    | Five = 10
-    | Four = 9
-    | FullHouse = 8
-    | Three = 7
-    | TwoPairs = 6
-    | Pair = 5
-    | High = 4
+    | Five = 6
+    | Four = 5
+    | FullHouse = 4
+    | Three = 3
+    | TwoPairs = 2
+    | Pair = 1
+    | High = 0
 
 type HandContents =
     {
@@ -24,13 +25,16 @@ type HandContents =
 [<RequireQualifiedAccess>]
 module Day7 =
 
+    [<Literal>]
+    let joker = 0uy
+
     let inline toByte (adjustJoker : bool) (c : char) : byte =
-        if c <= '9' then byte c - byte '0'
-        elif c = 'T' then 10uy
-        elif c = 'J' then (if adjustJoker then 1uy else 11uy)
-        elif c = 'Q' then 12uy
-        elif c = 'K' then 13uy
-        elif c = 'A' then 14uy
+        if c <= '9' then byte c - byte '1'
+        elif c = 'T' then 9uy
+        elif c = 'J' then (if adjustJoker then joker else 10uy)
+        elif c = 'Q' then 11uy
+        elif c = 'K' then 12uy
+        elif c = 'A' then 13uy
         else failwithf "could not parse: %c" c
 
     let inline private updateState (tallies : ResizeArray<_>) newNum =
@@ -44,12 +48,32 @@ module Day7 =
         if not isAdded then
             tallies.Add (newNum, 1)
 
-    let inline parseHand
-        (tallyBuffer : ResizeArray<_>)
-        (adjustJoker : bool)
-        (s : ReadOnlySpan<char>)
-        : Hand * HandContents
-        =
+    type RankedHand = uint32
+
+    [<Literal>]
+    let fourteen = 14ul
+
+    [<Literal>]
+    let fourteenFive = fourteen * fourteen * fourteen * fourteen * fourteen
+
+    [<Literal>]
+    let fourteenFour = fourteen * fourteen * fourteen * fourteen
+
+    [<Literal>]
+    let fourteenThree = fourteen * fourteen * fourteen
+
+    [<Literal>]
+    let fourteenTwo = fourteen * fourteen
+
+    let toInt (hand : Hand) (contents : HandContents) : RankedHand =
+        uint32 hand * fourteenFive
+        + uint32 contents.First * fourteenFour
+        + uint32 contents.Second * fourteenThree
+        + uint32 contents.Third * fourteenTwo
+        + uint32 contents.Fourth * fourteen
+        + uint32 contents.Fifth
+
+    let parseHand (tallyBuffer : ResizeArray<_>) (adjustJoker : bool) (s : ReadOnlySpan<char>) : RankedHand =
         let contents =
             {
                 First = toByte adjustJoker s.[0]
@@ -70,17 +94,18 @@ module Day7 =
             if not adjustJoker then
                 0, -1
             else
-                let mutable count = 0
-                let mutable jokerPos = -1
+                let mutable jokerCount = 0
+                let mutable jokerPos = 0
 
-                for i = 0 to tallyBuffer.Count - 1 do
-                    let card, tally = tallyBuffer.[i]
+                while jokerPos < tallyBuffer.Count && jokerCount = 0 do
+                    let card, tally = tallyBuffer.[jokerPos]
 
-                    if card = 1uy then
-                        count <- tally
-                        jokerPos <- i
+                    if card = joker then
+                        jokerCount <- tally
+                    else
+                        jokerPos <- jokerPos + 1
 
-                count, jokerPos
+                jokerCount, jokerPos
 
         let hand =
             if jokerCount > 0 then
@@ -135,70 +160,56 @@ module Day7 =
             else
                 Hand.High
 
-        hand, contents
+        toInt hand contents
 
-    let parse (adjustJoker : bool) (s : string) : ResizeArray<Hand * HandContents * int> =
+    type RankedHandAndBid = uint32
+
+    [<Literal>]
+    let bidSeparator = 1001ul
+
+    let inline toRankedHandAndBid (r : RankedHand) (bid : uint32) : RankedHandAndBid = bidSeparator * r + bid
+
+    let inline getBid (r : RankedHandAndBid) : uint32 = uint32 (r % bidSeparator)
+
+    let parse (adjustJoker : bool) (s : string) : ResizeArray<RankedHandAndBid> =
         use mutable lines = StringSplitEnumerator.make '\n' s
-        let result = ResizeArray ()
-        let tallies = ResizeArray 5
+        let result = ResizeArray.create 4
+        let tallies = ResizeArray.create 5
 
         while lines.MoveNext () do
             if not lines.Current.IsEmpty then
                 use mutable line = StringSplitEnumerator.make' ' ' lines.Current
                 line.MoveNext () |> ignore
-                let hand, contents = parseHand tallies adjustJoker line.Current
+                let rankedHand = parseHand tallies adjustJoker line.Current
                 line.MoveNext () |> ignore
-                let bid = Int32.Parse line.Current
 
-                result.Add (hand, contents, bid)
+                let bid =
+                    UInt32.Parse (line.Current, NumberStyles.Integer, CultureInfo.InvariantCulture)
+
+                result.Add (toRankedHandAndBid rankedHand bid)
 
         result
 
-    let compArrBasic (a : HandContents) (b : HandContents) =
-        if a.First > b.First then 1
-        elif a.First < b.First then -1
-        elif a.Second > b.Second then 1
-        elif a.Second < b.Second then -1
-        elif a.Third > b.Third then 1
-        elif a.Third < b.Third then -1
-        elif a.Fourth > b.Fourth then 1
-        elif a.Fourth < b.Fourth then -1
-        elif a.Fifth > b.Fifth then 1
-        elif a.Fifth < b.Fifth then -1
-        else 0
+    let part1 (s : string) =
+        let arr = parse false s
 
-    let compBasic : IComparer<Hand * HandContents * int> =
-        { new IComparer<_> with
-            member _.Compare ((aHand, aContents, _), (bHand, bContents, _)) =
-                match compare aHand bHand with
-                | 0 -> compArrBasic aContents bContents
-                | x -> x
-        }
+        arr.Sort ()
 
-    let part1 (s : string) : int =
-        let parsed = parse false s
+        let mutable answer = 0ul
 
-        parsed.Sort compBasic
-
-        let mutable answer = 0
-        let mutable pos = 1
-
-        for _, _, bid in parsed do
-            answer <- answer + bid * pos
-            pos <- pos + 1
+        for i = 0 to arr.Count - 1 do
+            answer <- answer + getBid arr.[i] * (uint32 i + 1ul)
 
         answer
 
     let part2 (s : string) =
-        let parsed = parse true s
+        let arr = parse true s
 
-        parsed.Sort compBasic
+        arr.Sort ()
 
-        let mutable answer = 0
-        let mutable pos = 1
+        let mutable answer = 0ul
 
-        for _, _, bid in parsed do
-            answer <- answer + bid * pos
-            pos <- pos + 1
+        for i = 0 to arr.Count - 1 do
+            answer <- answer + getBid arr.[i] * (uint32 i + 1ul)
 
         answer

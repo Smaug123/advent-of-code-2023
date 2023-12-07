@@ -1,9 +1,12 @@
 namespace AdventOfCode2023
 
 open System
+open System.Globalization
 
 [<RequireQualifiedAccess>]
 module Day2 =
+    let inline parseInt (s : ReadOnlySpan<char>) : int =
+        Int32.Parse (s, NumberStyles.None, CultureInfo.InvariantCulture)
 
     let part1 (s : string) =
         use lines = StringSplitEnumerator.make '\n' s
@@ -18,20 +21,20 @@ module Day2 =
                 while isOk && words.MoveNext () do
                     match words.Current.[0] with
                     | 'b' ->
-                        if Int32.Parse prevWord > 14 then
+                        if parseInt prevWord > 14 then
                             isOk <- false
                     | 'r' ->
-                        if Int32.Parse prevWord > 12 then
+                        if parseInt prevWord > 12 then
                             isOk <- false
                     | 'g' ->
-                        if Int32.Parse prevWord > 13 then
+                        if parseInt prevWord > 13 then
                             isOk <- false
                     | _ -> ()
 
                     prevWord <- words.Current
 
                 if isOk then
-                    answer <- answer + Int32.Parse (line.Slice (5, line.IndexOf ':' - 5))
+                    answer <- answer + parseInt (line.Slice (5, line.IndexOf ':' - 5))
 
         answer
 
@@ -49,9 +52,9 @@ module Day2 =
 
                 while words.MoveNext () do
                     match words.Current.[0] with
-                    | 'b' -> blues <- max blues (Int32.Parse prevWord)
-                    | 'r' -> reds <- max reds (Int32.Parse prevWord)
-                    | 'g' -> greens <- max greens (Int32.Parse prevWord)
+                    | 'b' -> blues <- max blues (parseInt prevWord)
+                    | 'r' -> reds <- max reds (parseInt prevWord)
+                    | 'g' -> greens <- max greens (parseInt prevWord)
                     | _ -> ()
 
                     prevWord <- words.Current
