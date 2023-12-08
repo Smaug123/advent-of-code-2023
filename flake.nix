@@ -35,11 +35,7 @@
         in {
           devShells = {
             default = pkgs.mkShell {
-              NIX_LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath ([
-                  pkgs.stdenv.cc.cc
-                ]
-                ++ deps);
-              NIX_LD = "${pkgs.stdenv.cc.libc_bin}/bin/ld.so";
+              LINKER_PATH = "${pkgs.stdenv.cc}/nix-support/dynamic-linker";
               buildInputs = with pkgs;
                 [
                   (with dotnetCorePackages;
@@ -48,7 +44,7 @@
                       dotnetPackages.Nuget
                     ])
                 ]
-                ++ [pkgs.alejandra];
+                ++ [pkgs.alejandra pkgs.patchelf];
             };
           };
         }
