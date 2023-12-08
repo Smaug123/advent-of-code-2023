@@ -158,6 +158,27 @@ module Program =
             Console.WriteLine (part2.ToString ())
             Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
 
+        Console.WriteLine "=====Day 8====="
+
+        do
+            let input =
+                try
+                    Path.Combine (dir.FullName, "day8part1.txt") |> File.ReadAllText
+                with :? FileNotFoundException ->
+                    Path.Combine (dir.FullName, "day8.txt") |> File.ReadAllText
+
+            sw.Restart ()
+            let part1 = Day8.part1 input
+            sw.Stop ()
+            Console.WriteLine (part1.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
+            sw.Restart ()
+            let input = Path.Combine (dir.FullName, "day8.txt") |> File.ReadAllText
+            let part2 = Day8.part2 input
+            sw.Stop ()
+            Console.WriteLine (part2.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
+
         endToEnd.Stop ()
 
         Console.Error.WriteLine (
