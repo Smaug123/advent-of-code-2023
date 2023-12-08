@@ -8,6 +8,9 @@ steps:
       - "nix develop --command sh -c 'patchelf --set-interpreter $LINKER_PATH /root/.nuget/packages/runtime.linux-x64.microsoft.dotnet.ilcompiler/8.0.0/tools/ilc'"
       - "ls -al /root/.nuget/packages/runtime.linux-x64.microsoft.dotnet.ilcompiler/8.0.0/tools/ilc"
       - "chmod a+x /root/.nuget/packages/runtime.linux-x64.microsoft.dotnet.ilcompiler/8.0.0/tools/ilc"
+      - "ls -al /root/.nuget/packages/runtime.linux-x64.microsoft.dotnet.ilcompiler/8.0.0/tools/ilc"
+      - "whoami"
+      - "/root/.nuget/packages/runtime.linux-x64.microsoft.dotnet.ilcompiler/8.0.0/tools/ilc AdventOfCode2023.FSharp/AdventOfCode2023.FSharp/obj/Release/net8.0/linux-x64/native/AdventOfCode2023.FSharp.ilc.rsp"
       - "nix develop --command dotnet publish AdventOfCode2023.FSharp/AdventOfCode2023.FSharp/AdventOfCode2023.FSharp.fsproj --configuration Release -p:PublishAot=true"
       # Lint
       - "nix flake check"
