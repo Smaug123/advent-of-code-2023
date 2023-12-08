@@ -3,6 +3,7 @@ steps:
     image: nixos/nix
     commands:
       - echo 'experimental-features = flakes nix-command' >> /etc/nix/nix.conf
+      - "nix develop --command dotnet publish AdventOfCode2023.FSharp/AdventOfCode2023.FSharp/AdventOfCode2023.FSharp.fsproj --configuration Release -p:PublishAot=true -p:SelfContained=true"
       # Lint
       - "nix flake check"
       # Test
