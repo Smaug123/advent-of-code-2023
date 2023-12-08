@@ -3,12 +3,17 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
     flake-utils,
+    nix-ld,
   }:
     flake-utils.lib.eachDefaultSystem (
       system: let
@@ -25,9 +30,16 @@
               pkgs.darwin.apple_sdk.frameworks.GSS
             ]
             else [];
+        in let
+          deps = darwinDeps ++ [pkgs.zlib pkgs.zlib.dev pkgs.openssl pkgs.icu];
         in {
           devShells = {
             default = pkgs.mkShell {
+              NIX_LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath ([
+                  pkgs.stdenv.cc.cc
+                ]
+                ++ deps);
+              NIX_LD = "${pkgs.stdenv.cc.libc_bin}/bin/ld.so";
               buildInputs = with pkgs;
                 [
                   (with dotnetCorePackages;
@@ -36,8 +48,7 @@
                       dotnetPackages.Nuget
                     ])
                 ]
-                ++ darwinDeps
-                ++ [pkgs.zlib pkgs.zlib.dev pkgs.openssl pkgs.icu pkgs.alejandra];
+                ++ [pkgs.alejandra];
             };
           };
         }
