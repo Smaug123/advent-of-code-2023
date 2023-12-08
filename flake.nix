@@ -46,7 +46,7 @@
                       dotnetPackages.Nuget
                     ])
                 ]
-                ++ [pkgs.alejandra pkgs.patchelf];
+                ++ [pkgs.alejandra pkgs.patchelf pkgs.strace];
             };
           };
         }
