@@ -35,6 +35,7 @@
         in {
           devShells = {
             default = pkgs.mkShell {
+              HOME = "/tmp/dotnet-home";
               LINKER_PATH = "${pkgs.stdenv.cc}/nix-support/dynamic-linker";
               buildInputs = with pkgs;
                 [
