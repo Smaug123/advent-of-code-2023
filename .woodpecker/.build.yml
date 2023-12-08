@@ -4,7 +4,7 @@ steps:
     commands:
       - echo 'experimental-features = flakes nix-command' >> /etc/nix/nix.conf
       - "nix develop --command dotnet publish AdventOfCode2023.FSharp/AdventOfCode2023.FSharp/AdventOfCode2023.FSharp.fsproj --configuration Release -p:PublishAot=true || echo 'First publish failed'"
-      - 'nix develop --command patchElf --set-interpreter "$LINKER_PATH" /root/.nuget/packages/runtime.linux-x64.microsoft.dotnet.ilcompiler/8.0.0/tools/ilc'
+      - 'nix develop --command patchelf --set-interpreter "$LINKER_PATH" /root/.nuget/packages/runtime.linux-x64.microsoft.dotnet.ilcompiler/8.0.0/tools/ilc'
       - "nix develop --command dotnet publish AdventOfCode2023.FSharp/AdventOfCode2023.FSharp/AdventOfCode2023.FSharp.fsproj --configuration Release -p:PublishAot=true"
       # Lint
       - "nix flake check"
