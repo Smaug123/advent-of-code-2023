@@ -1,44 +1,46 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
 
-        <IsPackable>false</IsPackable>
-        <IsTestProject>true</IsTestProject>
-    </PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <Compile Include="Util.fs" />
-        <Compile Include="TestDay1.fs" />
-        <Compile Include="TestDay2.fs" />
-        <Compile Include="TestDay3.fs" />
-        <Compile Include="TestDay4.fs" />
-        <Compile Include="TestDay5.fs" />
-        <Compile Include="TestDay6.fs" />
-        <Compile Include="TestDay7.fs" />
-        <Compile Include="TestDay8.fs" />
-        <EmbeddedResource Include="samples\day1.txt" />
-        <EmbeddedResource Include="samples\day1part1.txt" />
-        <EmbeddedResource Include="samples\day2.txt" />
-        <EmbeddedResource Include="samples\day3.txt" />
-        <EmbeddedResource Include="samples\day4.txt" />
-        <EmbeddedResource Include="samples\day5.txt" />
-        <EmbeddedResource Include="samples\day6.txt" />
-        <EmbeddedResource Include="samples\day7.txt" />
-        <EmbeddedResource Include="samples\day8part1.txt" />
-        <EmbeddedResource Include="samples\day8.txt" />
-    </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Util.fs"/>
+    <Compile Include="TestDay1.fs"/>
+    <Compile Include="TestDay2.fs"/>
+    <Compile Include="TestDay3.fs"/>
+    <Compile Include="TestDay4.fs"/>
+    <Compile Include="TestDay5.fs"/>
+    <Compile Include="TestDay6.fs"/>
+    <Compile Include="TestDay7.fs"/>
+    <Compile Include="TestDay8.fs"/>
+    <Compile Include="TestDay9.fs"/>
+    <EmbeddedResource Include="samples\day1.txt"/>
+    <EmbeddedResource Include="samples\day1part1.txt"/>
+    <EmbeddedResource Include="samples\day2.txt"/>
+    <EmbeddedResource Include="samples\day3.txt"/>
+    <EmbeddedResource Include="samples\day4.txt"/>
+    <EmbeddedResource Include="samples\day5.txt"/>
+    <EmbeddedResource Include="samples\day6.txt"/>
+    <EmbeddedResource Include="samples\day7.txt"/>
+    <EmbeddedResource Include="samples\day8part1.txt"/>
+    <EmbeddedResource Include="samples\day8.txt"/>
+    <EmbeddedResource Include="samples\day9.txt"/>
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="FsUnit" Version="5.6.1" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0"/>
-        <PackageReference Include="NUnit3TestAdapter" Version="4.2.1"/>
-        <PackageReference Include="NUnit.Analyzers" Version="3.6.1"/>
-        <PackageReference Include="coverlet.collector" Version="6.0.0"/>
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FsUnit" Version="5.6.1"/>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0"/>
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1"/>
+    <PackageReference Include="NUnit.Analyzers" Version="3.6.1"/>
+    <PackageReference Include="coverlet.collector" Version="6.0.0"/>
+  </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\AdventOfCode2023.FSharp.Lib\AdventOfCode2023.FSharp.Lib.fsproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AdventOfCode2023.FSharp.Lib\AdventOfCode2023.FSharp.Lib.fsproj"/>
+  </ItemGroup>
 
 </Project>

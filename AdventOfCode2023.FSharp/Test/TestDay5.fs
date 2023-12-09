@@ -1,6 +1,5 @@
 namespace AdventOfCode2023.Test
 
-open System
 open AdventOfCode2023
 open NUnit.Framework
 open FsUnitTyped
