@@ -18,6 +18,7 @@
     <Compile Include="TestDay7.fs"/>
     <Compile Include="TestDay8.fs"/>
     <Compile Include="TestDay9.fs"/>
+    <Compile Include="TestDay10.fs" />
     <EmbeddedResource Include="samples\day1.txt"/>
     <EmbeddedResource Include="samples\day1part1.txt"/>
     <EmbeddedResource Include="samples\day2.txt"/>
@@ -29,6 +30,8 @@
     <EmbeddedResource Include="samples\day8part1.txt"/>
     <EmbeddedResource Include="samples\day8.txt"/>
     <EmbeddedResource Include="samples\day9.txt"/>
+    <EmbeddedResource Include="samples\day10part1.txt" />
+    <EmbeddedResource Include="samples\day10.txt" />
   </ItemGroup>
 
   <ItemGroup>
