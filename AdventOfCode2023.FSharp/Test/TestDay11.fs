@@ -6,39 +6,42 @@ open FsUnitTyped
 open System.IO
 
 [<TestFixture>]
-module TestDay9 =
+module TestDay11 =
 
-    let sample = Assembly.getEmbeddedResource typeof<Dummy>.Assembly "day9.txt"
+    let sample = Assembly.getEmbeddedResource typeof<Dummy>.Assembly "day11.txt"
 
     [<Test>]
     let part1Sample () =
-        sample |> Day9.part1 |> shouldEqual 114L
+        sample |> Day11.part1 |> shouldEqual 374uL
 
     [<Test>]
-    let part2Sample () = sample |> Day9.part2 |> shouldEqual 2L
+    let part2Sample () =
+        let data = sample |> Day11.parse
+        Day11.solve data 10uL |> shouldEqual 1030uL
+        Day11.solve data 100uL |> shouldEqual 8410uL
 
     [<Test>]
     let part1Actual () =
         let s =
             try
-                File.ReadAllText (Path.Combine (__SOURCE_DIRECTORY__, "../../inputs/day9.txt"))
+                File.ReadAllText (Path.Combine (__SOURCE_DIRECTORY__, "../../inputs/day11.txt"))
             with
             | :? DirectoryNotFoundException
             | :? FileNotFoundException ->
                 Assert.Inconclusive ()
                 failwith "unreachable"
 
-        Day9.part1 s |> shouldEqual 1898776583L
+        Day11.part1 s |> shouldEqual 9947476uL
 
     [<Test>]
     let part2Actual () =
         let s =
             try
-                File.ReadAllText (Path.Combine (__SOURCE_DIRECTORY__, "../../inputs/day9.txt"))
+                File.ReadAllText (Path.Combine (__SOURCE_DIRECTORY__, "../../inputs/day11.txt"))
             with
             | :? DirectoryNotFoundException
             | :? FileNotFoundException ->
                 Assert.Inconclusive ()
                 failwith "unreachable"
 
-        Day9.part2 s |> shouldEqual 1100L
+        Day11.part2 s |> shouldEqual 519939907614uL

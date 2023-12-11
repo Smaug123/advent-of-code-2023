@@ -211,6 +211,22 @@ module Program =
             Console.WriteLine (part2.ToString ())
             Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
 
+        Console.WriteLine "=====Day 11====="
+
+        do
+            let input = Path.Combine (dir.FullName, "day11.txt") |> File.ReadAllText
+
+            sw.Restart ()
+            let part1 = Day11.part1 input
+            sw.Stop ()
+            Console.WriteLine (part1.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
+            sw.Restart ()
+            let part2 = Day11.part2 input
+            sw.Stop ()
+            Console.WriteLine (part2.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
+
         endToEnd.Stop ()
 
         Console.Error.WriteLine (
