@@ -1,7 +1,5 @@
 namespace AdventOfCode2023
 
-open System
-
 [<RequireQualifiedAccess>]
 module Day11 =
 
@@ -41,7 +39,7 @@ module Day11 =
             let result = ResizeArray ()
             let mutable prevCol = 0
 
-            for (_, c) in galaxies do
+            for _, c in galaxies do
                 if c > prevCol then
                     for j = prevCol + 1 to c - 1 do
                         result.Add j
