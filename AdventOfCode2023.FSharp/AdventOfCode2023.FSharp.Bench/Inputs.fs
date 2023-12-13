@@ -14,6 +14,6 @@ module Inputs =
             if isNull dir then
                 failwith "reached root of filesystem without finding inputs dir"
 
-        Array.init 12 (fun day -> Path.Combine (dir.FullName, "inputs", $"day%i{day + 1}.txt") |> File.ReadAllText)
+        Array.init 13 (fun day -> Path.Combine (dir.FullName, "inputs", $"day%i{day + 1}.txt") |> File.ReadAllText)
 
     let inline day (i : int) = days.[i - 1]
