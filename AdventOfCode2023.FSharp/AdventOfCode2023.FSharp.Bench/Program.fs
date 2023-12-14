@@ -44,7 +44,7 @@ module Benchmarks =
         [<GlobalSetup>]
         member _.Setup () = Run.shouldWrite <- false
 
-        [<Params(11, 12, 13)>]
+        [<Params(11, 12, 13, 14)>]
         member val Day = 0 with get, set
 
         [<Params(false, true)>]
