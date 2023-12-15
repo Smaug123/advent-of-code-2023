@@ -197,6 +197,18 @@ module Run =
             if shouldWrite then
                 Console.WriteLine output
 
+    let day15 (partTwo : bool) (input : string) =
+        if not partTwo then
+            let output = Day15.part1 input
+
+            if shouldWrite then
+                Console.WriteLine output
+        else
+            let output = Day15.part2 input
+
+            if shouldWrite then
+                Console.WriteLine output
+
     let allRuns =
         [|
             day1
@@ -213,4 +225,5 @@ module Run =
             day12
             day13
             day14
+            day15
         |]
