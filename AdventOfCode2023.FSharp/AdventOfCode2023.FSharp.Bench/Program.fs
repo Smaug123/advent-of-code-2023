@@ -57,6 +57,23 @@ module Benchmarks =
         [<GlobalCleanup>]
         member _.Cleanup () = Run.shouldWrite <- true
 
+    type Benchmark16To20 () =
+        [<GlobalSetup>]
+        member _.Setup () = Run.shouldWrite <- false
+
+        [<Params(16)>]
+        member val Day = 0 with get, set
+
+        [<Params(false, true)>]
+        member val IsPartOne = false with get, set
+
+        [<Benchmark>]
+        member this.Benchmark () : unit =
+            Run.allRuns.[this.Day - 1] (not this.IsPartOne) (Inputs.day this.Day)
+
+        [<GlobalCleanup>]
+        member _.Cleanup () = Run.shouldWrite <- true
+
 module Program =
 
     [<EntryPoint>]
