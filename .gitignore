@@ -10,3 +10,4 @@ result
 .profile*
 
 inputs/
+AdventOfCode2023.FSharp/Test/TestResults/

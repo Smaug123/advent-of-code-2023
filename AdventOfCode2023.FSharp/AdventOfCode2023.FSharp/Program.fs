@@ -316,6 +316,34 @@ module Program =
             Console.WriteLine (part2.ToString ())
             Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
 
+        Console.WriteLine "=====Day 19====="
+
+        do
+            let input = Path.Combine (dir.FullName, "day19.txt") |> File.ReadAllText
+
+            sw.Restart ()
+            use mutable s = StringSplitEnumerator.make '\n' input
+            let data = Day19.readWorkflows &s
+            sw.Stop ()
+
+            Console.Error.WriteLine (
+                (1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString ()
+                + "ms parse"
+            )
+
+            let mutable sCopy = s
+
+            sw.Restart ()
+            let part1 = Day19.part1 data &s
+            sw.Stop ()
+            Console.WriteLine (part1.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
+            sw.Restart ()
+            let part2 = Day19.part2 data &sCopy
+            sw.Stop ()
+            Console.WriteLine (part2.ToString ())
+            Console.Error.WriteLine ((1_000.0 * float sw.ElapsedTicks / float Stopwatch.Frequency).ToString () + "ms")
+
         endToEnd.Stop ()
 
         Console.Error.WriteLine (

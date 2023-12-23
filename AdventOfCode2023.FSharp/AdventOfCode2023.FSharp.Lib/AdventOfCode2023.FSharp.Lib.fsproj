@@ -12,6 +12,8 @@
     <Compile Include="EfficientString.fs"/>
     <Compile Include="Arithmetic.fs"/>
     <Compile Include="Rational.fs"/>
+    <Compile Include="IntervalSet.fs" />
+    <Compile Include="List.fs" />
     <Compile Include="Day1.fs"/>
     <Compile Include="Day2.fs"/>
     <Compile Include="Day3.fs"/>
@@ -28,6 +30,7 @@
     <Compile Include="Day14.fs" />
     <Compile Include="Day15.fs" />
     <Compile Include="Day16.fs" />
+    <Compile Include="Day19.fs" />
   </ItemGroup>
 
 </Project>
