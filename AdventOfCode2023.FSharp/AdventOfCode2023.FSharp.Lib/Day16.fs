@@ -10,22 +10,8 @@ open System
 [<RequireQualifiedAccess>]
 module Day16 =
 
-    type Direction =
-        | Left = 0
-        | Right = 1
-        | Up = 2
-        | Down = 3
-
-    let inline dirToInt (d : Direction) =
-        match d with
-        | Direction.Left -> 0us
-        | Direction.Right -> 1us
-        | Direction.Up -> 2us
-        | Direction.Down -> 3us
-        | _ -> failwith "Bad"
-
     let inline storeDirectionAndPos (numCols : int) (col : int) (row : int) (direction : Direction) : uint16 =
-        4us * uint16 (col + numCols * row) + dirToInt direction
+        4us * uint16 (col + numCols * row) + Direction.toUInt direction
 
     let inline getDirection (input : uint16) =
         match input % 4us with
