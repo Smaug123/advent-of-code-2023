@@ -123,41 +123,6 @@ module Day10 =
 
         distance
 
-    let floodFill (stackBuf : ResizeArray<_>) (s : Arr2D<byte>) (currX : int) (currY : int) =
-        stackBuf.Clear ()
-        stackBuf.Add currX
-        stackBuf.Add currY
-
-        while stackBuf.Count > 0 do
-            let currY = stackBuf.[stackBuf.Count - 1]
-            stackBuf.RemoveAt (stackBuf.Count - 1)
-            let currX = stackBuf.[stackBuf.Count - 1]
-            stackBuf.RemoveAt (stackBuf.Count - 1)
-
-            if currX > 0 then
-                if Arr2D.get s (currX - 1) currY = 0uy then
-                    Arr2D.set s (currX - 1) currY 2uy
-                    stackBuf.Add (currX - 1)
-                    stackBuf.Add currY
-
-            if currX < s.Width - 1 then
-                if Arr2D.get s (currX + 1) currY = 0uy then
-                    Arr2D.set s (currX + 1) currY 2uy
-                    stackBuf.Add (currX + 1)
-                    stackBuf.Add currY
-
-            if currY > 0 then
-                if Arr2D.get s currX (currY - 1) = 0uy then
-                    Arr2D.set s currX (currY - 1) 2uy
-                    stackBuf.Add currX
-                    stackBuf.Add (currY - 1)
-
-            if currY < s.Height - 1 then
-                if Arr2D.get s currX (currY + 1) = 0uy then
-                    Arr2D.set s currX (currY + 1) 2uy
-                    stackBuf.Add currX
-                    stackBuf.Add (currY + 1)
-
     let print (s : Arr2D<byte>) =
         for y = 0 to s.Height - 1 do
             for x = 0 to s.Width - 1 do
@@ -310,12 +275,12 @@ module Day10 =
         let stackBuf = ResizeArray ()
 
         for line = 0 to system.Height - 1 do
-            floodFill stackBuf system 0 line
-            floodFill stackBuf system (system.Width - 1) line
+            Arr2D.floodFill stackBuf system 0uy 2uy 0 line
+            Arr2D.floodFill stackBuf system 0uy 2uy (system.Width - 1) line
 
         for col = 0 to system.Width - 1 do
-            floodFill stackBuf system col 0
-            floodFill stackBuf system col (system.Height - 1)
+            Arr2D.floodFill stackBuf system 0uy 2uy col 0
+            Arr2D.floodFill stackBuf system 0uy 2uy col (system.Height - 1)
 
         let mutable answer = 0
 

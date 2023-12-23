@@ -5,6 +5,7 @@
 #nowarn "9"
 #endif
 
+open System
 open Microsoft.FSharp.NativeInterop
 
 [<Struct>]
@@ -100,3 +101,76 @@ module Arr2D =
 #else
         NativePtr.initBlock a.Elements 0uy (uint32 sizeof<'a> * uint32 a.Length)
 #endif
+
+    /// Pass in a buffer of memory which we will use entirely for our own purposes (and may resize)
+    /// to maintain state.
+    /// `empty` is the value in empty cells; we will fill them with `fillWith`.
+    let floodFill
+        (stackBuf : ResizeArray<int>)
+        (s : Arr2D<'a>)
+        (empty : 'a)
+        (fillWith : 'a)
+        (currX : int)
+        (currY : int)
+        : unit
+        =
+        stackBuf.Clear ()
+        stackBuf.Add currX
+        stackBuf.Add currY
+
+        while stackBuf.Count > 0 do
+            let currY = stackBuf.[stackBuf.Count - 1]
+            stackBuf.RemoveAt (stackBuf.Count - 1)
+            let currX = stackBuf.[stackBuf.Count - 1]
+            stackBuf.RemoveAt (stackBuf.Count - 1)
+
+            if currX > 0 then
+                if get s (currX - 1) currY = empty then
+                    set s (currX - 1) currY fillWith
+                    stackBuf.Add (currX - 1)
+                    stackBuf.Add currY
+
+            if currX < s.Width - 1 then
+                if get s (currX + 1) currY = empty then
+                    set s (currX + 1) currY fillWith
+                    stackBuf.Add (currX + 1)
+                    stackBuf.Add currY
+
+            if currY > 0 then
+                if get s currX (currY - 1) = empty then
+                    set s currX (currY - 1) fillWith
+                    stackBuf.Add currX
+                    stackBuf.Add (currY - 1)
+
+            if currY < s.Height - 1 then
+                if get s currX (currY + 1) = empty then
+                    set s currX (currY + 1) fillWith
+                    stackBuf.Add currX
+                    stackBuf.Add (currY + 1)
+
+    /// SIMD go brr
+    let inline count< ^a when 'a : equality and 'a : unmanaged and 'a :> IEquatable<'a>>
+        (arr : Arr2D<'a>)
+        (x : 'a)
+        : int
+        =
+        let span =
+#if DEBUG
+            arr.Elements.AsSpan ()
+#else
+            ReadOnlySpan<'a> (NativePtr.toVoidPtr arr.Elements, arr.Length)
+#endif
+        MemoryExtensions.Count (span, x)
+
+    let print (arr : Arr2D<byte>) =
+        for row = 0 to arr.Height - 1 do
+            for col = 0 to arr.Width - 1 do
+                match get arr col row with
+                | 1uy -> printf "#"
+                | 0uy -> printf "."
+                | 2uy -> printf "O"
+                | _ -> failwith "bad"
+
+            printfn ""
+
+        printfn ""

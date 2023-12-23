@@ -137,19 +137,6 @@ module Day14 =
                 else // current = 0uy
                     pos <- pos + 1
 
-    let print (board : Arr2D<byte>) =
-        for row = 0 to board.Height - 1 do
-            for col = 0 to board.Width - 1 do
-                match Arr2D.get board col row with
-                | 0uy -> printf "."
-                | 1uy -> printf "O"
-                | 2uy -> printf "#"
-                | _ -> failwith "bad value"
-
-            printfn ""
-
-        printfn ""
-
     let score (board : Arr2D<byte>) =
         let mutable answer = 0ul
 
