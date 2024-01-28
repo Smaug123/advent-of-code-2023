@@ -8,6 +8,7 @@ _ReSharper.Caches/
 .DS_Store
 result
 .profile*
+.direnv/
 
 inputs/
 AdventOfCode2023.FSharp/Test/TestResults/
